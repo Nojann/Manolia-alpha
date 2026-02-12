@@ -1,5 +1,5 @@
 from sqlmodel import Field, SQLModel, Relationship
-from src.knowledges.models import Knowledge
+from src.app.models.knowledge import Knowledge
 #TODO : add pydantic validation
 
 class Question(SQLModel, table=True):
@@ -9,4 +9,4 @@ class Question(SQLModel, table=True):
     knowledge_id: int | None = Field(default=None, foreign_key="knowledge.id", ondelete="CASCADE")
     knowledge: Knowledge | None =  Relationship(back_populates="questions")
 
-    metrics: list["Metrics"] = Relationship(back_populates="question", cascade_delete=True) # type: ignore
+    metrics: list["Metric"] = Relationship(back_populates="question", cascade_delete=True) # type: ignore

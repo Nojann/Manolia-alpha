@@ -1,14 +1,14 @@
 from sqlmodel import Session, select
 
-from src.questions.models import Question
-from src.knowledges.models import Knowledge
-from src.database import engine
+from src.app.models.question import Question
+from src.app.models.knowledge import Knowledge
+from src.app.database import engine
 
-def create_question(Question: Question):
+def create_question(question: Question):
     with Session(engine) as session:
-        session.add(Question)
+        session.add(question)
         session.commit()
-
+    return question
         
 def read_questions(knowledge):
     with Session(engine) as session:

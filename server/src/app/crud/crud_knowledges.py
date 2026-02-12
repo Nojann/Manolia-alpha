@@ -1,12 +1,13 @@
 from sqlmodel import Session, select
 
-from src.knowledges.models import Knowledge
-from src.database import engine
+from src.app.models.knowledge import Knowledge
+from src.app.database import engine
 
 def create_knowledge(knowledge: Knowledge):
     with Session(engine) as session:
         session.add(knowledge)
         session.commit()
+    return knowledge
 
 def read_knowledges():
     with Session(engine) as session:
@@ -39,4 +40,3 @@ def delete_knowledge(knowledge_id: int):
         knowledge = session.get(Knowledge, knowledge_id)
         session.delete(knowledge)
         session.commit()
-        #TODO : delete join questions

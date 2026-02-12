@@ -1,14 +1,14 @@
 from sqlmodel import Session, select
 
-from src.metrics.models import Metric
-from src.questions.models import Question
-from src.database import engine
+from src.app.models.metric import Metric
+from src.app.models.question import Question
+from src.app.database import engine
 
-def create_metric(Metric: Metric):
+def create_metric(metric: Metric):
     with Session(engine) as session:
-        session.add(Metric)
+        session.add(metric)
         session.commit()
-
+    return metric
         
 def read_metrics(question):
     with Session(engine) as session:
