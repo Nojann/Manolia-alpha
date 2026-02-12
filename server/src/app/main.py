@@ -7,6 +7,8 @@ from src.app.models.question import Question
 from src.app.models.knowledge import Knowledge
 from src.app.models.metric import Metric
 
+from .api import router
+
 #Test
 from src.app.faker_seed import faker
 
@@ -15,12 +17,8 @@ from src.app.faker_seed import faker
 async def lifespan(app: FastAPI):
     #startup
     create_db_and_tables()
-    faker()
     yield
     #shutdown
 
 app = FastAPI(lifespan=lifespan)
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(router)

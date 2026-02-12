@@ -8,6 +8,7 @@ def create_metric(metric: Metric):
     with Session(engine) as session:
         session.add(metric)
         session.commit()
+        session.refresh(metric)
     return metric
         
 def read_metrics(question):

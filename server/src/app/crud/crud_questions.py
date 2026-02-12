@@ -8,6 +8,7 @@ def create_question(question: Question):
     with Session(engine) as session:
         session.add(question)
         session.commit()
+        session.refresh(question)
     return question
         
 def read_questions(knowledge):

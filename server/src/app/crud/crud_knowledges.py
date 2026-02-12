@@ -1,3 +1,4 @@
+from fastapi import Depends
 from sqlmodel import Session, select
 
 from src.app.models.knowledge import Knowledge
@@ -7,6 +8,7 @@ def create_knowledge(knowledge: Knowledge):
     with Session(engine) as session:
         session.add(knowledge)
         session.commit()
+        session.refresh(knowledge)
     return knowledge
 
 def read_knowledges():
