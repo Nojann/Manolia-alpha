@@ -1,11 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+import AppTopbar from '@/components/AppTopbar.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header>
+    <AppTopbar />
+  </header>
+  <main>
+    <RouterView />
+  </main>
+  <!-- <footer>
+    <AppFooter />
+  </footer> -->
 </template>
 
-<style scoped></style>
+<style>
+/* #app {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  #app {
+    height: 100vh;
+  }
+} */
+</style>
