@@ -1,9 +1,9 @@
-from dotenv import load_dotenv
 import os
-#import secrets
+from dotenv import load_dotenv
 from sqlmodel import Session, SQLModel, create_engine
 
 load_dotenv()
+
 database_uri=os.environ.get("DATABASE_URI")
 
 connect_args = {"check_same_thread": False}

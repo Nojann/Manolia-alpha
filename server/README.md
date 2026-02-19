@@ -3,6 +3,7 @@ FastAPI server to run Manolia
 
 # Run
 ```
+cd src/app
 fastapi dev main.py
 ```
 

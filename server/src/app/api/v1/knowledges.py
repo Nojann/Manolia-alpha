@@ -4,6 +4,8 @@ from src.app.models.knowledge import Knowledge
 from src.app.crud.crud_knowledges import create_knowledge, read_knowledges, read_knowledge, update_knowledge, delete_knowledge
 from src.app.crud.crud_questions import read_questions as read_questions_crud
 
+from src.app.services.language_generation import completion
+
 #Added in __ini__
 router = APIRouter(tags=["knowledges"])
 
@@ -38,9 +40,9 @@ def delete(id: int):
 #TODO: find pattern 
 @router.post("/knowledges/{id}/questions")
 def create_questions(id: int):
-    #SLM Generation
+    question = completion(read_knowledge(id))
     #create_question()
-    return True
+    return question
 
 @router.get("/knowledges/{id}/questions")
 def read_questions(id: int):
