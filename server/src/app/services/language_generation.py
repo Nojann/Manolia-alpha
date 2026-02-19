@@ -43,5 +43,5 @@ def completion(knowledge: Knowledge):
         if(index_mark > 0):
             questions.append(sent[0:index_mark+1])
 
-    return {"questions": questions, "sentence":sents}
+    return questions
 
