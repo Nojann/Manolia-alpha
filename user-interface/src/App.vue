@@ -16,13 +16,13 @@ import AppTopbar from '@/components/AppTopbar.vue'
 </template>
 
 <style>
-/* #app {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+#app {
+  background-color: #FFF4EA;
+  padding-inline: 5%;
+  height: 100vh;
 }
 
-main {
+/* main {
   height: 100%;
 }
 
