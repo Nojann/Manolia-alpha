@@ -1,7 +1,6 @@
 from sqlmodel import Session, select
 
 from src.app.models.question import Question
-from src.app.models.knowledge import Knowledge
 from src.app.database import engine
 
 def create_question(question: Question):

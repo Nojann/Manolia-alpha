@@ -15,7 +15,7 @@ client = OpenAI(
 
 nlp = spacy.load("fr_core_news_sm")
 
-def completion(knowledge: Knowledge):
+def questions_generation(knowledge: Knowledge):
 
     context = "Texte : ```" + knowledge.content + "```"
     instruction = "A partir du texte génère 3 questions :"

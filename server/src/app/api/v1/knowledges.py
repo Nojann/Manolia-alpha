@@ -1,10 +1,12 @@
 from fastapi import APIRouter
 
 from src.app.models.knowledge import Knowledge
-from src.app.crud.crud_knowledges import create_knowledge, read_knowledges, read_knowledge, update_knowledge, delete_knowledge
-from src.app.crud.crud_questions import read_questions as read_questions_crud
+from src.app.models.question import Question
 
-from src.app.services.language_generation import completion
+from src.app.crud.crud_knowledges import create_knowledge, read_knowledges, read_knowledge, update_knowledge, delete_knowledge
+from src.app.crud.crud_questions import read_questions as read_questions_crud, create_question
+
+from src.app.services.language_generation import questions_generation
 
 #Added in __ini__
 router = APIRouter(tags=["knowledges"])
@@ -37,12 +39,14 @@ def delete(id: int):
     knowledge = delete_knowledge(id)
     return knowledge
 
-#TODO: find pattern 
 @router.post("/knowledges/{id}/questions")
 def create_questions(id: int):
-    question = completion(read_knowledge(id))
-    #create_question()
-    return question
+    knowledge = read_knowledge(id)
+    questions_raw = questions_generation(knowledge)
+    for q in questions_raw:
+        question = Question(question = q, knowledge=knowledge)
+        create_question(question)
+    return questions_raw
 
 @router.get("/knowledges/{id}/questions")
 def read_questions(id: int):
