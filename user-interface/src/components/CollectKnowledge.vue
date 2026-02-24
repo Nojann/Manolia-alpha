@@ -37,32 +37,45 @@
 <div class="container">
     <h2>Collect Knowledge</h2>
     <b-field label="Knowledge">
-        <!-- @vue-ignore -->
-        <b-input
-            v-model="knowledgeModel"
-            maxlength="1200" 
-            type="textarea" 
-            required
-            ></b-input>
+    <!-- @vue-ignore -->
+    <b-input
+        v-model="knowledgeModel"
+        placeholder="Knowledge is an awareness of facts, a familiarity with individuals and situations, or a practical skill."
+        maxlength="1200" 
+        type="textarea" 
+        required
+        ></b-input>
     </b-field>
     <b-field label="URI">
         <!-- @vue-ignore -->
         <b-input 
             v-model="uriModel" 
+            placeholder="en.wikipedia.org/wiki/Knowledge"
             maxlength="100"
             required
         ></b-input>
     </b-field>
-    <b-button type="is-primary" @click="postKnowledge" >Submit</b-button>
+    <div class="btn-container">
+        <b-field>
+        <div class="control">
+            <b-button type="is-primary" @click="postKnowledge" >Share</b-button>
+        </div>
+        </b-field>
+    </div>
 </div>
 
 </template>
 
 <style scoped>
-.container{
-    background-color: #ffffff;
-    border-radius: 16px;
-    padding: 34px;
-}
+    .container{
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 34px;
+    }
+
+    .btn-container{
+        display: flex;
+        justify-content: end;
+    }
 
 </style>

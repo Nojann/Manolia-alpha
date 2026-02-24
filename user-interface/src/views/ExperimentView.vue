@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import ReadKnowledges from '@/components/ReadKnowledges.vue';
-import CollectKnowledge from '@/components/CollectKnowledge.vue';
-//import EvaluateQuestion from '@/components/EvaluateQuestion.vue';
+    import ReadKnowledges from '@/components/ReadKnowledges.vue';
+    import { useStepsStore } from '@/stores/steps'
+
+    const stepsStore = useStepsStore()
+    stepsStore
 </script>
 
 <template>
@@ -10,7 +12,7 @@ import CollectKnowledge from '@/components/CollectKnowledge.vue';
             <ReadKnowledges/>
         </section>
         <section id="section-central">
-            <CollectKnowledge/>
+            <component :is="stepsStore.getCurrentComponent"></component>
         </section>
         <!-- <section>
             <EvaluateQuestion/>
