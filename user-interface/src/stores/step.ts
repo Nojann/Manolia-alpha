@@ -2,16 +2,16 @@ import { ref, computed, type Component } from 'vue'
 import { defineStore } from 'pinia'
 
 import CollectKnowledge from '@/components/CollectKnowledge.vue'
-import LoadingModel from '@/components/LoadingModel.vue'
 import EvaluateQuestion from '@/components/EvaluateQuestion.vue'
+import GenerateQuestion from '@/components/GenerateQuestion.vue'
 
 const steps: Component = [
   CollectKnowledge,
-  LoadingModel,
+  GenerateQuestion,
   EvaluateQuestion
 ]
 
-export const useStepsStore = defineStore('steps', () => {
+export const useStepStore = defineStore('step', () => {
   const indexStep = ref(0)
 
   const getCurrentComponent = computed(() => steps[indexStep.value])

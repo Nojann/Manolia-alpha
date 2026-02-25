@@ -4,6 +4,11 @@
     import { ref } from "vue";
 
     import type { Knowledge } from "@/types/types";
+    import { useStepStore } from '@/stores/step'
+    import { useItemStore } from '@/stores/item'
+
+    const stepStore = useStepStore()
+    const itemStore = useItemStore()
 
     const knowledgeModel = ref<string>("")
     const uriModel = ref<string>("")
@@ -18,8 +23,10 @@
         }
         if(validation(knowledge)){
             try {
-                await apiClient.post("api/v1/knowledges/", knowledge)
+                const response: Knowledge = await apiClient.post("api/v1/knowledges/", knowledge)
                 Toast.open({message: "Knowledge collected", type: "is-success"})
+                itemStore.$patch({ knowledge:response })
+                stepStore.nextStep()
             }
             catch {
                 Toast.open({message: "Data entry error", type: "is-danger"})

@@ -7,14 +7,14 @@ interface Knowledge {
 interface Question {
     id: number | null,
     question: string,
-    knowledgId: number,
+    knowledgeId: number,
     metric: Metric | null
 }
 
 interface Metric {
-    id: number | null,
-    questionId: number,
-    needIndex: number
+    //id: number | null,
+    question_id: number,
+    need_index: number
 }
 
 export type {Knowledge, Question, Metric}
