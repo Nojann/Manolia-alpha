@@ -1,15 +1,11 @@
-import os
 import spacy
 
+from src.app.config import settings
 from openai import OpenAI
-from pydantic import BaseModel
 from src.app.models.knowledge import Knowledge
 
-language_model_api=os.environ.get("LANGUAGE_MODEL_API")
-model_name=os.environ.get("LANGUAGE_MODEL_NAME")
-
 client = OpenAI(
-    base_url=language_model_api,
+    base_url=settings.LANGUAGE_MODEL_API,
     api_key = "sk-no-key-required"
 )
 
@@ -23,7 +19,7 @@ def questions_generation(knowledge: Knowledge):
 
     #SLM processing
     response = client.responses.create(
-        model=model_name,
+        model=settings.LANGUAGE_MODEL_NAME,
         input=[
             {"role": "system", "content": "Question Generation"},
             {"role": "user", "content": prompt}],

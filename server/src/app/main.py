@@ -1,6 +1,5 @@
+from src.app.config import settings
 from contextlib import asynccontextmanager
-import os
-from dotenv import load_dotenv
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,8 +17,6 @@ from .api import router
 #Test
 from src.app.faker_seed import faker
 
-load_dotenv()
-
 #TODO : alternative @app.on_event("startup") ?
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,7 +28,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(router)
 
-origin = os.environ.get("ORIGIN")
+origin = settings.ORIGIN
 origins = [origin]
 
 app.add_middleware(
