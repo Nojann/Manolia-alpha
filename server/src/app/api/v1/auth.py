@@ -2,11 +2,13 @@ from typing import Annotated
 
 from fastapi import Depends, APIRouter, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from datetime import timedelta
 
 from src.app.models.user import User
 from src.app.data.user import create_user
-from src.app.services.auth import get_current_user, authenticate_user, create_access_token, hash_password, Token
+
+from src.app.auth.dependancies import get_current_user, authenticate_user
+from src.app.auth.security import hash_password, create_access_token
+from src.app.auth.schemas import Token
 
 router = APIRouter(tags=["users"])
 

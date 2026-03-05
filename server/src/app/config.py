@@ -1,17 +1,19 @@
 from pydantic_settings import BaseSettings
+from pydantic import Field
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URI: str
+    DATABASE_URI: str = Field("sqlite:///database.db", env='DATABASE_URI')  
 
     # Language model
-    LANGUAGE_MODEL_API: str = "http://localhost:8080/v1"
-    LANGUAGE_MODEL_NAME: str = "SmolLM3-Q4_K_M.gguf"
+    LANGUAGE_MODEL_API: str = Field("http://localhost:8080/v1", env='LANGUAGE_MODEL_API') 
+    LANGUAGE_MODEL_NAME: str = Field("SmolLM3-Q4_K_M.gguf", env='LANGUAGE_MODEL_NAME')  
 
     # Security
-    ORIGIN: str
-    SECRET_KEY : str 
-    ACCESS_TOKEN_EXPIRE_MINUTES: int 
+    ORIGIN: str = Field('http://localhost:5173', env='ORIGIN')
+    SECRET_KEY : str = Field('random_string', env='SECRET_KEY')
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ALGORITHM: str = "HS256"
 
     class Config:
         env_file = ".env"
