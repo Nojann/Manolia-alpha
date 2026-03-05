@@ -1,9 +1,9 @@
 from src.app.models.knowledge import Knowledge
-from src.app.crud.crud_knowledges import create_knowledge
+from src.app.data.knowledge import create_knowledge
 from src.app.models.question import Question
-from src.app.crud.crud_questions import create_question
+from src.app.data.question import create_question
 from src.app.models.metric import Metric
-from src.app.crud.crud_metrics import create_metric
+from src.app.data.metric import create_metric
 
 def faker():
     knowledge1 = Knowledge(content="La connaissance est une notion aux sens multiples, à la fois utilisée dans le langage courant et objet d'étude poussée de la part des sciences cognitives et des philosophes contemporains. ", uri="https://fr.wikipedia.org/wiki/Connaissance")

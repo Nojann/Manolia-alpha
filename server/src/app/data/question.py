@@ -22,18 +22,6 @@ def read_question(question_id: int):
         question = session.get(Question, question_id)
     return question
 
-# #TODO adapt logic with args
-# def update_question(question_id: int, content: str, uri: str):
-#     with Session(engine) as session:
-#         question = session.get(Question, question_id)
-#         question.content = content if content else question.content
-#         question.uri = uri if uri else question.uri 
-        
-#         session.add(question)
-#         session.commit()
-#         session.refresh(question)
-
-#TODO : test
 def delete_question(question_id: int):
     with Session(engine) as session:
         question = session.get(Question, question_id)

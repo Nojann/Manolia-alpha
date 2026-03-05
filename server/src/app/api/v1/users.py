@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta
 
 from src.app.models.user import User
-from src.app.crud.crud_user import create_user
+from src.app.data.user import create_user
 from src.app.services.auth import get_current_user, authenticate_user, create_access_token, hash_password, Token
 
 router = APIRouter(tags=["users"])
