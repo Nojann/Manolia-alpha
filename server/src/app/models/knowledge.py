@@ -1,5 +1,4 @@
 from sqlmodel import Field, SQLModel, Relationship
-#TODO : add pydantic validation
 
 class Knowledge(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)

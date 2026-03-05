@@ -11,6 +11,7 @@ from src.app.database import create_db_and_tables
 from src.app.models.question import Question
 from src.app.models.knowledge import Knowledge
 from src.app.models.metric import Metric
+from src.app.models.user import User
 
 from .api import router
 

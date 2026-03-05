@@ -1,8 +1,6 @@
 from sqlmodel import Field, SQLModel, Relationship
 from src.app.models.question import Question
 
-#TODO : add pydantic validation
-
 class Metric(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     

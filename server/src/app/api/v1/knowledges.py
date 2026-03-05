@@ -1,3 +1,4 @@
+from typing import Annotated
 from fastapi import APIRouter
 
 from src.app.models.knowledge import Knowledge

@@ -1,7 +1,7 @@
 from src.app.models.knowledge import Knowledge
-from src.app.crud.crud_knowledges import create_knowledge, read_knowledges, read_knowledge, update_knowledge, delete_knowledge
+from src.app.crud.crud_knowledges import create_knowledge
 from src.app.models.question import Question
-from src.app.crud.crud_questions import create_question, read_questions, read_question
+from src.app.crud.crud_questions import create_question
 from src.app.models.metric import Metric
 from src.app.crud.crud_metrics import create_metric
 
@@ -37,3 +37,4 @@ def faker():
     create_metric(metric3)
     create_metric(metric4)
     create_metric(metric5)
+

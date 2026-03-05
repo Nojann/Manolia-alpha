@@ -20,9 +20,6 @@ def read_knowledges():
 
 def read_knowledge(knowledge_id: int):
     with Session(engine) as session:
-        #statement = select(Knowledge).where(Knowledge.id == knowledge_id)
-        #results = session.exec(statement)
-        #knowledge = results.first()
         knowledge = session.get(Knowledge, knowledge_id)
     return knowledge
 
@@ -36,6 +33,7 @@ def update_knowledge(knowledge_id: int, content: str, uri: str):
         session.add(knowledge)
         session.commit()
         session.refresh(knowledge)
+    return knowledge
 
 def delete_knowledge(knowledge_id: int):
     with Session(engine) as session:
