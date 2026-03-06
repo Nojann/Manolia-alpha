@@ -39,7 +39,7 @@ def verify_token(token: str, token_type: str = "access") -> Optional[dict]:
 
 def verify_beyond_user_limit() -> bool:
     users: Sequence[User] = get_users()
-    if (len(users) > settings.USER_LIMIT):
+    if (len(users) >= settings.USER_LIMIT):
         return True
     else:
         return False
