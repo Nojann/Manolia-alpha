@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     SECRET_KEY : str = Field('random_string', env='SECRET_KEY')
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 240
     ALGORITHM: str = "HS256"
+    USER_LIMIT: int = 10
 
     class Config:
         env_file = ".env"

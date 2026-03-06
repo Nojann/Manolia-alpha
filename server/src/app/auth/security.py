@@ -1,5 +1,6 @@
 from src.app.config import settings
-from typing import Optional
+from typing import Optional, Sequence
+from src.app.models.user import User
 from datetime import timedelta, datetime, timezone
 from argon2 import PasswordHasher
 from argon2.exceptions import (
@@ -9,8 +10,7 @@ from argon2.exceptions import (
 )
 import jwt
 from jwt.exceptions import InvalidTokenError
-
-
+from src.app.data.user import get_users
 
 password_hasher = PasswordHasher()
 
@@ -37,4 +37,11 @@ def verify_token(token: str, token_type: str = "access") -> Optional[dict]:
     except InvalidTokenError:
         return None
 
+def verify_beyond_user_limit() -> bool:
+    users: Sequence[User] = get_users()
+    if (len(users) > settings.USER_LIMIT):
+        return True
+    else:
+        return False
+    
 #def create_refresh_token(data: dict) -> str:

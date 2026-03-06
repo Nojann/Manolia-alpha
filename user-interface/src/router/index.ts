@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { isAuthenticated } from '@/services/apiAxios'
 
-const pagesWithoutGuard = ['login', 'app']
+const pagesWithoutGuard = ['login', 'app', 'register']
  
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,14 +22,20 @@ const router = createRouter({
       path: '/login',
       alias: '/login',
       name: 'login',
-      component: () => import('@/views/AuthView.vue'),
+      component: () => import('@/views/LoginView.vue'),
+    },
+    {
+      path: '/register',
+      alias: '/register',
+      name: 'register',
+      component: () => import('@/views/RegisterView.vue'),
     }
   ],
 })
 
 router.beforeEach(async (to, from) => {
   const isAuth = await isAuthenticated()
-  if (!isAuth && !pagesWithoutGuard.includes(to.name!.toString())) {
+  if (!isAuth && pagesWithoutGuard.includes(to.name!.toString())) {
     return { name: 'login' }
   }
 })

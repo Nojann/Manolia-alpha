@@ -9,10 +9,13 @@
 
     const Toast = useToast()
 
-    async function login() {
+    async function register() {
         try {
-            const response = await authAPI.login(username.value, password.value)
-            const { access_token, refresh_token } = response.data
+            const responseRegister = await authAPI.register(username.value, password.value)
+            if(responseRegister.status != 200)
+                throw new Error("Registred failed")
+            const responseLogin = await authAPI.login(username.value, password.value)
+            const { access_token, refresh_token } = responseLogin.data
 
             localStorage.setItem('access_token', access_token)
             localStorage.setItem('refresh_token', refresh_token)
@@ -20,7 +23,7 @@
             router.push({ path: '/experiment' })
         } catch (err){
             console.log(err)
-            Toast.open({message: "Login failed", type: "is-danger"})
+            Toast.open({message: "Registred failed", type: "is-danger"})
         }
     }
     
@@ -46,7 +49,7 @@
                     required
                 ></b-input>
             </b-field>
-            <b-button type="is-primary" @click="login" >Login</b-button>
+            <b-button type="is-primary" @click="register">Register</b-button>
     </div>
 </template>
 
