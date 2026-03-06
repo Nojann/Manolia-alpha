@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import router from '@/router/index' 
     import { BField, BInput, BButton, useToast } from "buefy";
     import { ref } from "vue"
     import { authAPI } from '@/services/apiAxios'
@@ -16,6 +17,7 @@
             localStorage.setItem('access_token', access_token)
             localStorage.setItem('refresh_token', refresh_token)
             
+            router.push({ path: '/experiment' })
         } catch (err){
             console.log(err)
             Toast.open({message: "Login failed", type: "is-danger"})

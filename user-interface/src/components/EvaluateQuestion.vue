@@ -8,6 +8,7 @@
     import { useItemStore } from '@/stores/item'
 
     import api from "@/services/apiAxios"
+    import type { AxiosResponse } from "axios";
 
     //const stepStore = useStepStore()
     const itemStore = useItemStore()
@@ -32,7 +33,7 @@
     })
 
     async function getQuestions(knowledge: Knowledge): Promise<Question[]>{
-        const response = await api.get(`api/v1/knowledges/${knowledge.id}/questions`)
+        const response: AxiosResponse = await api.get(`api/v1/knowledges/${knowledge.id}/questions`)
         const questions: Question[] = response.data
         return questions
     }

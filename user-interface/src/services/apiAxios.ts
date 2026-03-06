@@ -1,4 +1,5 @@
 import axios from "axios"
+import type { AxiosResponse } from "axios";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -20,7 +21,21 @@ export const authAPI = {
             new URLSearchParams({ username, password }),
             { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}
         ),
-    getMe: () => api.get('/auth/me')
+    getMe: () => api.get('/api/v1/auth/me')
+}
+
+export const isAuthenticated = async () => {
+    try {
+        const response: AxiosResponse = await authAPI.getMe()
+    if (response.status==200)
+        return true
+    else 
+        return false
+    }
+    catch{
+        return false
+    }
+    
 }
 
 export default api;

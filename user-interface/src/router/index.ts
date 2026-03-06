@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { isAuthenticated } from '@/services/apiAxios'
 
+const pagesWithoutGuard = ['login', 'app']
+ 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -7,6 +10,12 @@ const router = createRouter({
       path: '/',
       alias: '/app',
       name: 'app',
+      component: () => import('@/views/WelcomeView.vue'),
+    },
+    {
+      path: '/experiment',
+      alias: '/experiment',
+      name: 'experiment',
       component: () => import('@/views/ExperimentView.vue'),
     },
     {
@@ -16,6 +25,13 @@ const router = createRouter({
       component: () => import('@/views/AuthView.vue'),
     }
   ],
+})
+
+router.beforeEach(async (to, from) => {
+  const isAuth = await isAuthenticated()
+  if (!isAuth && !pagesWithoutGuard.includes(to.name!.toString())) {
+    return { name: 'login' }
+  }
 })
 
 export default router

@@ -13,9 +13,6 @@
         <section id="section-central">
             <component :is="stepStore.getCurrentComponent"></component>
         </section>
-        <!-- <section>
-            <EvaluateQuestion/>
-        </section> -->
     </div>
 </template>
 

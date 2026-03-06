@@ -2,7 +2,7 @@
     import { BField, BInput, BButton, useToast } from "buefy";
     //import { apiClient } from "@/services/api";
     import api from "@/services/apiAxios"
-    import { AxiosResponse } from "axios";
+    import type { AxiosResponse } from "axios";
     import { ref } from "vue";
 
     import type { Knowledge, KnowledgeCreate } from "@/types/types";
