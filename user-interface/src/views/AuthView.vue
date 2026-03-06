@@ -1,0 +1,58 @@
+<script setup lang="ts">
+    import { BField, BInput, BButton, useToast } from "buefy";
+    import { ref } from "vue"
+    import { authAPI } from '@/services/apiAxios'
+    
+    const username = ref<string>("")
+    const password = ref<string>("")
+
+    const Toast = useToast()
+
+    async function login() {
+        try {
+            const response = await authAPI.login(username.value, password.value)
+            const { access_token, refresh_token } = response.data
+
+            localStorage.setItem('access_token', access_token)
+            localStorage.setItem('refresh_token', refresh_token)
+            
+        } catch (err){
+            console.log(err)
+            Toast.open({message: "Login failed", type: "is-danger"})
+        }
+    }
+    
+</script>
+
+<template>
+    <div class="container">
+            <b-field label="Username">
+                <!-- @vue-ignore -->
+                <b-input
+                    v-model="username"
+                    placeholder="Alice"
+                    maxlength="20" 
+                    required
+                ></b-input>
+            </b-field>
+            <b-field label="Password">
+                <!-- @vue-ignore -->
+                <b-input
+                    v-model="password"
+                    maxlength="50"
+                    type="password"
+                    required
+                ></b-input>
+            </b-field>
+            <b-button type="is-primary" @click="login" >Login</b-button>
+    </div>
+</template>
+
+<style scoped>
+.container{
+        width: 20%;
+        background-color: #ffffff;
+        border-radius: 16px;
+        padding: 34px;
+    }
+</style>

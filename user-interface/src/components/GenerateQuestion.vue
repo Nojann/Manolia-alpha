@@ -3,7 +3,7 @@
     import { BProgress } from "buefy";
     import type { Knowledge } from "@/types/types";
 
-    import { apiClient } from "@/services/api";
+    import api from "@/services/apiAxios";
     import { useItemStore } from '@/stores/item'
     import { useStepStore } from '@/stores/step'
 
@@ -17,7 +17,7 @@
     })
     
     async function generateQuestions (knowledge: Knowledge) {
-        await apiClient.post(`api/v1/knowledges/${knowledge.id}/questions`, null)
+        await api.post(`api/v1/knowledges/${knowledge.id}/questions`)
         stepStore.nextStep()
     }
 </script>

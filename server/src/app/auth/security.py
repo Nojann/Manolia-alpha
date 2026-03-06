@@ -1,4 +1,5 @@
 from src.app.config import settings
+from typing import Optional
 from datetime import timedelta, datetime, timezone
 from argon2 import PasswordHasher
 from argon2.exceptions import (
@@ -8,6 +9,7 @@ from argon2.exceptions import (
 )
 import jwt
 from jwt.exceptions import InvalidTokenError
+
 
 
 password_hasher = PasswordHasher()
@@ -28,6 +30,11 @@ def create_access_token(data: dict):
         encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
         return encoded_jwt
 
-#def create_refresh_token(data: dict) -> str:
+def verify_token(token: str, token_type: str = "access") -> Optional[dict]:
+    try:
+        payload = jwt.decode(jwt = token, key = settings.SECRET_KEY, algorithms = [settings.ALGORITHM])
+        return payload
+    except InvalidTokenError:
+        return None
 
-#def verify_token(token: str, token_type: str = "access") -> Optional[dict]:
+#def create_refresh_token(data: dict) -> str:

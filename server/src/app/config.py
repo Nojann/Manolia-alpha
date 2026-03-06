@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     # Security
     ORIGIN: str = Field('http://localhost:5173', env='ORIGIN')
     SECRET_KEY : str = Field('random_string', env='SECRET_KEY')
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 240
     ALGORITHM: str = "HS256"
 
     class Config:

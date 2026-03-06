@@ -3,23 +3,23 @@ from sqlmodel import Session, select
 from src.app.models.question import Question
 from src.app.database import engine
 
-def create_question(question: Question):
+def get_question_by_id(question_id: int):
     with Session(engine) as session:
-        session.add(question)
-        session.commit()
-        session.refresh(question)
+        question = session.get(Question, question_id)
     return question
-        
-def read_questions(knowledge):
+
+def get_questions(knowledge):
     with Session(engine) as session:
         statement = select(Question).where(Question.knowledge_id == knowledge.id)
         results = session.exec(statement)
         questions = results.all()
     return questions
 
-def read_question(question_id: int):
+def create_question(question: Question):
     with Session(engine) as session:
-        question = session.get(Question, question_id)
+        session.add(question)
+        session.commit()
+        session.refresh(question)
     return question
 
 def delete_question(question_id: int):

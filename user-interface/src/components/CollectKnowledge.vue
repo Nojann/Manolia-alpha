@@ -1,11 +1,14 @@
 <script setup lang="ts">
     import { BField, BInput, BButton, useToast } from "buefy";
-    import { apiClient } from "@/services/api";
+    //import { apiClient } from "@/services/api";
+    import api from "@/services/apiAxios"
+    import { AxiosResponse } from "axios";
     import { ref } from "vue";
 
-    import type { Knowledge } from "@/types/types";
+    import type { Knowledge, KnowledgeCreate } from "@/types/types";
     import { useStepStore } from '@/stores/step'
     import { useItemStore } from '@/stores/item'
+
 
     const stepStore = useStepStore()
     const itemStore = useItemStore()
@@ -16,16 +19,16 @@
     const Toast = useToast()
 
     async function postKnowledge(){
-        const knowledge: Knowledge = {
-            id: null,
+        const knowledge: KnowledgeCreate = {
             content: knowledgeModel.value,
             uri: uriModel.value
         }
         if(validation(knowledge)){
             try {
-                const response: Knowledge = await apiClient.post("api/v1/knowledges/", knowledge)
+                const response: AxiosResponse = await api.post("api/v1/knowledges/", knowledge)
+                const knowledge_data: Knowledge = response.data
                 Toast.open({message: "Knowledge collected", type: "is-success"})
-                itemStore.$patch({ knowledge:response })
+                itemStore.$patch({ knowledge: knowledge_data })
                 stepStore.nextStep()
             }
             catch {
@@ -34,7 +37,7 @@
         }
     }
 
-    function validation(knowledge: Knowledge){
+    function validation(knowledge: KnowledgeCreate){
         return knowledge.content && knowledge.uri
     }
 

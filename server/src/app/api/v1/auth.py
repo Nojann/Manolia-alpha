@@ -1,18 +1,18 @@
 from typing import Annotated
 
 from fastapi import Depends, APIRouter, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm
 
-from src.app.models.user import User
-from src.app.data.user import create_user
+from src.app.models.user import User, UserCreate
+from src.app.data.user import create_user, get_user_by_username
 
 from src.app.auth.dependancies import get_current_user, authenticate_user
 from src.app.auth.security import hash_password, create_access_token
 from src.app.auth.schemas import Token
 
-router = APIRouter(tags=["users"])
+router = APIRouter(prefix="/auth", tags=["auth"])
 
-@router.post("/token")
+@router.post("/login")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -24,15 +24,19 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> T
     access_token = create_access_token(data={"sub": user.username})
     return Token(access_token=access_token, token_type="bearer")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/token")
-
-@router.get("/user")
+@router.get("/me")
 async def user(current_user: Annotated[str, Depends(get_current_user)]):
     return current_user
 
-@router.post("/user")
-async def create(username, password):
-    hashed_password = await hash_password(password)
-    user = User(username = username, hashed_password = hashed_password)
+@router.post("/register")
+async def create(user_data: UserCreate):
+    if get_user_by_username(user_data.username):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already registered"
+        )
+    
+    hashed_password = hash_password(user_data.plain_password)
+    user = User(username = user_data.username, hashed_password = hashed_password)
     created_user = create_user(user)
     return created_user

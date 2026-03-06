@@ -1,20 +1,19 @@
 <script setup lang="ts">
     import { ref } from "vue";
     import { onBeforeMount } from 'vue'
-    import type { Knowledge } from "@/types/types";
-    import type { Question } from "@/types/types";
-    import type { Metric } from "@/types/types";
+
+    import type { Knowledge, Question, MetricCreate } from "@/types/types"
 
     //import { useStepStore } from '@/stores/step'
     import { useItemStore } from '@/stores/item'
 
-    import { apiClient } from "@/services/api";
+    import api from "@/services/apiAxios"
 
     //const stepStore = useStepStore()
     const itemStore = useItemStore()
 
     const questions = ref<Question[]>()
-    const metrics = ref<Metric[]>([])
+    const metrics = ref<MetricCreate[]>([])
 
     onBeforeMount(async () => {
         if(itemStore.knowledge != undefined){
@@ -33,13 +32,14 @@
     })
 
     async function getQuestions(knowledge: Knowledge): Promise<Question[]>{
-        return apiClient.get(`api/v1/knowledges/${knowledge.id}/questions`)
+        const response = await api.get(`api/v1/knowledges/${knowledge.id}/questions`)
+        const questions: Question[] = response.data
+        return questions
     }
 
     function initializeMetrics(questions: Question[]){
         questions.forEach((q)=>{
-              const metric: Metric = {
-                //id: null,
+              const metric: MetricCreate = {
                 question_id: q.id!,
                 need_index: -1
             }
@@ -52,14 +52,15 @@
             return metrics.value.findIndex((metric) => metric.question_id === question.id)
         }
         else{
-            throw new Error("The is no metrics element");
+            throw new Error("The is no metrics element")
         }
     }
 
     async function postMetrics(){
-        console.log(metrics.value)
         metrics.value?.forEach(async (metric) => {
-            await apiClient.post(`api/v1/metrics/`, metric)
+            const response = await api.post(`api/v1/metrics/`, metric)
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const metric_data = response.data
         })
     }
 </script>

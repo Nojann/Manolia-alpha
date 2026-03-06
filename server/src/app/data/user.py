@@ -10,14 +10,14 @@ def create_user(user: User):
         session.refresh(user)
     return user
 
-def get_user(username: str):
+def get_user_by_username(username: str):
     with Session(engine) as session:
         statement = select(User).where(User.username == username)
         results = session.exec(statement)
         result = results.first()
     return result
 
-def read_users():
+def get_users():
     with Session(engine) as session:
         statement = select(User)
         results = session.exec(statement)

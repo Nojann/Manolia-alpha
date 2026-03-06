@@ -1,0 +1,26 @@
+import axios from "axios"
+
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL
+});
+
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token')
+    if (token){
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
+export const authAPI = {
+    register: (data: unknown) => api.post('/api/v1/auth/register', data),
+    login: (username: string, password: string) => 
+        api.post(
+            '/api/v1/auth/login',
+            new URLSearchParams({ username, password }),
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}
+        ),
+    getMe: () => api.get('/auth/me')
+}
+
+export default api;
