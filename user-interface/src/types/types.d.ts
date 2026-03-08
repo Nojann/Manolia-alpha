@@ -18,8 +18,14 @@ interface Question {
     user: User
 }
 
-interface MetricCreate {
+interface Metric {
+    //id
     question_id: number,
+    need_index: number
+    //user
+}
+
+interface MetricCreate {
     need_index: number
 }
 
@@ -28,4 +34,4 @@ interface User {
     token: string
 }
 
-export type {KnowledgeCreate, Knowledge, Question, MetricCreate}
+export type {KnowledgeCreate, Knowledge, Question, MetricCreate, Metric}

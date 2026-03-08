@@ -15,5 +15,4 @@ class Metric(SQLModel, table=True):
     user: User | None =  Relationship(back_populates="metrics")
 
 class MetricCreate(BaseModel):
-    question_id: int
     need_index: int

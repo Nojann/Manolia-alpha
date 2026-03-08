@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { isAuthenticated } from '@/services/apiAxios'
+import { isAuthenticated } from '@/services/api'
 
 const pagesWithoutGuard = ['login', 'app', 'register']
  
@@ -33,9 +33,10 @@ const router = createRouter({
   ],
 })
 
+// Guard system
 router.beforeEach(async (to, from) => {
   const isAuth = await isAuthenticated()
-  if (!isAuth && pagesWithoutGuard.includes(to.name!.toString())) {
+  if (!isAuth && !pagesWithoutGuard.includes(to.name!.toString())) {
     return { name: 'login' }
   }
 })

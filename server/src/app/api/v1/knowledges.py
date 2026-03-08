@@ -44,7 +44,7 @@ def generate_questions(id: int, current_user: Annotated[str, Depends(get_current
     )
     questions_raw = questions_generation(knowledge)
     for q in questions_raw:
-        question = Question(question = q, knowledge=knowledge)
+        question = Question(question = q, knowledge=knowledge, user=current_user)
         create_question(question)
     return questions_raw
 

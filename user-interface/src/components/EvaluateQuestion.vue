@@ -1,35 +1,43 @@
 <script setup lang="ts">
-    import { ref } from "vue";
-    import { onBeforeMount } from 'vue'
+    import { onBeforeMount, ref, watch } from "vue";
 
-    import type { Knowledge, Question, MetricCreate } from "@/types/types"
+    import type { Knowledge, Question, MetricCreate, Metric } from "@/types/types"
 
-    //import { useStepStore } from '@/stores/step'
+    import { useStepStore } from '@/stores/step'
     import { useItemStore } from '@/stores/item'
 
-    import api from "@/services/apiAxios"
+    import api from "@/services/api"
     import type { AxiosResponse } from "axios";
 
-    //const stepStore = useStepStore()
+    const stepStore = useStepStore()
     const itemStore = useItemStore()
 
     const questions = ref<Question[]>()
-    const metrics = ref<MetricCreate[]>([])
+    const metrics = ref<Metric[]>([])
 
     onBeforeMount(async () => {
-        if(itemStore.knowledge != undefined){
-            questions.value = await getQuestions(itemStore.knowledge)
-        }
-        else{
+        if(!itemStore.knowledge){
             throw new Error("There is no knowledge element in itemStore.");
         }
-        if(questions.value != undefined){
-            initializeMetrics(questions.value)
-        }
-        else{
+        questions.value = await getQuestions(itemStore.knowledge)
+
+        if(!questions.value){
             throw new Error("There is no questions element from API.");
         }
+        initializeMetrics(questions.value)
+    })
 
+    watch( () => itemStore.knowledge, async () =>{
+        metrics.value = []
+        if(!itemStore.knowledge){
+            throw new Error("There is no knowledge element in itemStore.");
+        }
+        questions.value = await getQuestions(itemStore.knowledge)
+
+        if(!questions.value){
+            throw new Error("There is no questions element from API.");
+        }
+        initializeMetrics(questions.value)
     })
 
     async function getQuestions(knowledge: Knowledge): Promise<Question[]>{
@@ -40,7 +48,7 @@
 
     function initializeMetrics(questions: Question[]){
         questions.forEach((q)=>{
-              const metric: MetricCreate = {
+              const metric: Metric = {
                 question_id: q.id!,
                 need_index: -1
             }
@@ -58,11 +66,14 @@
     }
 
     async function postMetrics(){
+        console.log( metrics.value)
         metrics.value?.forEach(async (metric) => {
-            const response = await api.post(`api/v1/metrics/`, metric)
+            const metricCreate: MetricCreate = { need_index: metric.need_index }
+            const response = await api.post(`api/v1/questions/${metric.question_id}/metrics`, metricCreate)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const metric_data = response.data
         })
+        stepStore.nextStep()
     }
 </script>
 
@@ -80,7 +91,7 @@
         <div class="btn-container">
             <b-field>
             <div class="control">
-                <b-button type="is-primary" @click="postMetrics" >Share</b-button>
+                <b-button type="is-primary" @click="postMetrics" >Partager</b-button>
             </div>
             </b-field>
         </div>

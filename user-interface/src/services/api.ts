@@ -1,74 +1,45 @@
-class ApiClient {
-  private baseURL: string
-  private defaultHeaders: Record<string, string>
+import axios from "axios"
+import type { AxiosResponse } from "axios";
 
-  constructor(baseURL: string) {
-    this.baseURL = baseURL
-    this.defaultHeaders = {
-      'Content-Type': 'application/json',
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL
+});
+
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token')
+    if (token){
+        config.headers.Authorization = `Bearer ${token}`
     }
-  }
+    return config
+})
 
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`
-    const config: RequestInit = {
-      headers: { ...this.defaultHeaders, ...options.headers },
-      ...options,
-    }
+export const authAPI = {
+    register: (username: string, password: string)  => 
+        api.post(
+            '/api/v1/auth/register', 
+            { "username":username, "plain_password":password }
+        ),
+    login: (username: string, password: string) => 
+        api.post(
+            '/api/v1/auth/login',
+            new URLSearchParams({ username, password }),
+            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}
+        ),
+    getMe: () => api.get('/api/v1/auth/me')
+}
 
-    let response
-
+export const isAuthenticated = async () => {
     try {
-      response = await fetch(url, config)
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new HTTPError(`Network error: ${error.message}`)
-      }
-      throw new HTTPError('Unknown network error')
+            const response: AxiosResponse = await authAPI.getMe()
+        if (response.status==200)
+            return true
+        else 
+            return false
     }
-
-    if (response?.ok) {
-      return response.json()
+    catch{
+        return false
     }
-
-    const errorData = await response.json().catch(() => ({}))
-    throw new HTTPError(
-      errorData.message || `HTTP ${response.status}: ${response.statusText}`,
-      response.status,
-      response,
-    )
-  }
-
-  /**
-   * HTTP Get
-   * @param endpoint
-   * @returns
-   */
-
-  async get<T>(endpoint: string): Promise<T> {
-    return this.request<T>(endpoint, { method: 'GET' })
-  }
-
-  /**
-   * HTTP Post
-   * @param endpoint
-   * @param data
-   * @returns
-   */
-  async post<T>(endpoint: string, data: unknown): Promise<T> {
-    return this.request<T>(endpoint, { method: 'POST', body: JSON.stringify(data) })
-  }
+    
 }
 
-class HTTPError extends Error {
-  constructor(
-    message: string,
-    private status: number | null = null,
-    private reponse: Response | null = null,
-  ) {
-    super(message)
-    this.name = 'HTTPError'
-  }
-}
-
-export const apiClient = new ApiClient(import.meta.env.VITE_API_URL)
+export default api;

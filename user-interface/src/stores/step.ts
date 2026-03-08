@@ -5,6 +5,8 @@ import CollectKnowledge from '@/components/CollectKnowledge.vue'
 import EvaluateQuestion from '@/components/EvaluateQuestion.vue'
 import GenerateQuestion from '@/components/GenerateQuestion.vue'
 
+import { ProcessStep } from '@/services/knowledgeWorklow'
+
 const steps: Component = [
   CollectKnowledge,
   GenerateQuestion,
@@ -17,8 +19,15 @@ export const useStepStore = defineStore('step', () => {
   const getCurrentComponent = computed(() => steps[indexStep.value])
 
   function nextStep() {
-    indexStep.value++
+    if(indexStep.value + 1 < steps.length)
+      indexStep.value++
+    else
+      indexStep.value = 0
   }
 
-  return { steps, getCurrentComponent, nextStep }
+  function goToStep(processStep: ProcessStep){
+    indexStep.value = processStep
+  }
+
+  return { indexStep, steps, getCurrentComponent, nextStep, goToStep }
 })

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-    import { BField, BInput, BButton, useToast } from "buefy";
-    //import { apiClient } from "@/services/api";
-    import api from "@/services/apiAxios"
-    import type { AxiosResponse } from "axios";
-    import { ref } from "vue";
+    import { BField, BInput, BButton, useToast } from "buefy"
+    import api from "@/services/api"
+    import type { AxiosResponse } from "axios"
+    import { ref } from "vue"
 
-    import type { Knowledge, KnowledgeCreate } from "@/types/types";
+    import type { Knowledge, KnowledgeCreate } from "@/types/types"
     import { useStepStore } from '@/stores/step'
     import { useItemStore } from '@/stores/item'
 
@@ -45,8 +44,8 @@
 
 <template>
 <div class="container">
-    <h2>Collect Knowledge</h2>
-    <b-field label="Knowledge">
+    <h2>Ajouter une connaissance</h2>
+    <b-field label="Connaissance">
     <!-- @vue-ignore -->
     <b-input
         v-model="knowledgeModel"
@@ -68,7 +67,7 @@
     <div class="btn-container">
         <b-field>
         <div class="control">
-            <b-button type="is-primary" @click="postKnowledge" >Share</b-button>
+            <b-button type="is-primary" @click="postKnowledge" >Partager</b-button>
         </div>
         </b-field>
     </div>

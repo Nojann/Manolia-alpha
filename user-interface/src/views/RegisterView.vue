@@ -2,7 +2,7 @@
     import router from '@/router/index' 
     import { BField, BInput, BButton, useToast } from "buefy";
     import { ref } from "vue"
-    import { authAPI } from '@/services/apiAxios'
+    import { authAPI } from '@/services/api'
     
     const username = ref<string>("")
     const password = ref<string>("")

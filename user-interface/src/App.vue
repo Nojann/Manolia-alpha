@@ -21,14 +21,4 @@ import AppTopbar from '@/components/AppTopbar.vue'
   padding-inline: 5%;
   height: 100vh;
 }
-
-/* main {
-  height: 100%;
-}
-
-@media screen and (min-width: 768px) {
-  #app {
-    height: 100vh;
-  }
-} */
 </style>
