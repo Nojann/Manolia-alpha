@@ -27,15 +27,21 @@
 
 <template>
     <div class="container">
-        <h2>Generation</h2>
+        <div class="title-container">
+            <div class="title-icon">
+                <img src="../assets/svg/a-b-2.svg" alt="generation icon" />
+            </div>
+            <h2>Génération de questions</h2>
+        </div>
+        <p>La génération par Small Language Model (SML) peut prendre plusieurs minutes, nous éxécutons le modèle sur CPU.</p>
+        <p>En attendant, vous pouvez ajouter des nouvelles connaissances.</p>
+        <div>
+                <img src="../assets/svg/neural-network.svg" alt="neural network" />
+            </div>
         <b-progress></b-progress>
     </div>
 </template>
 
 <style scoped>
-.container{
-    background-color: #ffffff;
-    border-radius: 16px;
-    padding: 34px;
-}
+
 </style>

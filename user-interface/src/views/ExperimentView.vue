@@ -21,5 +21,8 @@
         display: grid;
         grid-template-columns: 1fr 3fr;
         gap: 24px;
+        height: 100%;
+
+        flex: 1;
     }
 </style>

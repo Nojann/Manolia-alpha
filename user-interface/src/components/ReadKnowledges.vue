@@ -80,7 +80,13 @@
 
 <template>
     <div class="container">
-        <h2>Connaissances</h2>
+        <div class="title-container">
+            <div class="title-icon">
+                <img src="../assets/svg/file-description.svg" alt="file description" />
+            </div>
+            <h2>Connaissances</h2>
+        </div>
+        
         <ul>
             <li v-for="(kW, index) in knowledgesWorkflow" :key="index" class="list-element">
                 <div class="list-element-index">
@@ -115,11 +121,6 @@
 </template>
 
 <style scoped>
-    .container{
-        background-color: #ffffff;
-        border-radius: 16px;
-        padding: 34px;
-    }
     .list-element{
         margin-bottom: 8px;
 

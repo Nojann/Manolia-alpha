@@ -17,8 +17,17 @@ import AppTopbar from '@/components/AppTopbar.vue'
 
 <style>
 #app {
-  background-color: #FFF4EA;
   padding-inline: 5%;
-  height: 100vh;
+  padding-top: 8px;
+  padding-bottom: 32px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+main{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>
