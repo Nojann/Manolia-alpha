@@ -124,7 +124,7 @@
             </div>
         </b-collapse>
         <ul class="question-list">
-            <li v-for="(question, index) in questions" :key="index" class="question-list-item">
+            <li v-for="(question, index) in questions?.slice(0,3)" :key="index" class="question-list-item">
                 <div class="question">
                     <img src="../assets/svg/question-mark.svg" alt="question-mark " />
                     {{ question.question }}

@@ -48,7 +48,7 @@
         <div class="title-icon">
             <img src="../assets/svg/file-import.svg" alt="file import" />
         </div>
-        <h2>Collecte de connaissance</h2>
+        <h2>Collecter une connaissance</h2>
     </div>
     <div class="body-container">
         <div>
