@@ -14,7 +14,7 @@ nlp = spacy.load("fr_core_news_sm")
 def questions_generation(knowledge: Knowledge):
 
     context = "Texte : ```" + knowledge.content + "```"
-    instruction = "A partir du texte génère 3 questions :"
+    instruction = "A partir du texte génère 3 questions. Ces 3 questions vise à approfonfir (augmenter, intensifier, accroître, creuser) le texte. "
     prompt = context + "\n" + instruction
 
     #SLM processing

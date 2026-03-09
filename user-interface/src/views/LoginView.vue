@@ -27,7 +27,7 @@
 </script>
 
 <template>
-    <div class="container">
+    <div class="container container-size">
             <b-field label="Username">
                 <!-- @vue-ignore -->
                 <b-input
@@ -51,10 +51,10 @@
 </template>
 
 <style scoped>
-.container{
-        width: 20%;
-        background-color: #ffffff;
-        border-radius: 16px;
-        padding: 34px;
+.container-size{
+        flex: none;
+        gap:0;
+        width: 20rem;
+        height: 20rem ;
     }
 </style>
