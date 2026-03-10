@@ -1,4 +1,6 @@
-fastapi==0.128.6
+# X86_V2 arch :
+# numpy<2.4.0
+fastapi[standard]==0.128.6
 sqlmodel==0.0.32
 python-dotenv==1.2.1
 openai==2.21.0
@@ -8,3 +10,5 @@ PyJWT>=2.11.0
 # python -m spacy download fr_core_news_sm
 argon2-cffi>=25.1.0
 pydantic-settings==2.13.1
+gunicorn==25.1.0
+mariadb==1.1.14
