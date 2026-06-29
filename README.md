@@ -1,5 +1,3 @@
-# Manolia
-
 ![Manolia logo](./doc/manolia.png?raw=true)
 
 https://www.manolia.org/
