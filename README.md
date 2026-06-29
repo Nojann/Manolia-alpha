@@ -8,14 +8,14 @@ Manolia provides a knowledge layer for Natural Language Processing, centered on 
 
 ## Built With
 
-UI: Vue.js
-Server: FastAPI
+- UI: Vue.js
+- Server: FastAPI
 
 ## Small Language Model
 
-Inference Engine: llama.cpp
-Model: SmolLM3
-Hardware tested : CPU Intel Xeon E5430
+- Inference Engine: llama.cpp
+- Model: SmolLM3
+- Hardware tested : CPU Intel Xeon E5430
 
 # Alpha
 At this early stage, Manolia is an annotation application. It enables data to be collected on users’ perceptions of the quality of the questions generated from a paragraph of knowledge entered by the user.
